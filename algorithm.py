@@ -3,7 +3,7 @@ from graph import *
 from collections import *
 import collections
 
-def coloring(graphs):
+def color_refinement(graphs):
 
     # initialization
     for graph in graphs:
@@ -54,7 +54,7 @@ def analyze_groups(graphs, isomorphic_groups):
         first_graph_idx = group[0]
         first_graph = graphs[first_graph_idx]
         
-        _, iteration_count = coloring([first_graph])
+        _, iteration_count = color_refinement([first_graph])
         # Discreteness check
         is_discrete = (len(set(v.label for v in first_graph.vertices)) == len(first_graph.vertices))
         
@@ -63,14 +63,16 @@ def analyze_groups(graphs, isomorphic_groups):
     return analysis_results
 
 def start(graphs):
-    isomorphic_groups, _ = coloring(graphs)
+    isomorphic_groups, _ = color_refinement(graphs)
     results = analyze_groups(graphs, isomorphic_groups)
     return results
 
 # Check algorithm
-source = "/Users/ammar/Desktop/Graph Project/SampleGraphsBasicColorRefinement/repair6.grl"
+source = "/Users/ammar/Desktop/Graph/graph_isomorphism/SampleGraphsBasicColorRefinement/repair6.grl"
 with open(source, 'r') as file:
     graphs, _ = load_graph(file, Graph, read_list=True)
+print("Graups of isomorphc graphs: ")
+print("Format: '[isomorphic graphs indexes], iterations, is_discrete'")
 print(start(graphs))
 
 
